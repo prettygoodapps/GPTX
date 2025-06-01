@@ -36,7 +36,63 @@ This makes GPTX the **first AI token platform to turn Bitcoin into a climate-pos
 
 ---
 
-## 🔖 Summary Messaging
 
-> 💸 **Now Accepting Bitcoin!**  
-> Use BTC to purchase GPTX credits and receive a **10% bonus**. Every transaction funds verifiable carbon offsets—making your Bitcoin compute-positive.
+***
+
+
+# 🌱 Bitcoin Sustainability & Carbon Offset Model
+
+## ✅ Is Bitcoin-Based Offset Sustainable?
+
+Yes—**Bitcoin-based carbon offsets can be sustainable and ethical**, provided they are implemented transparently, with accurate modeling and verifiable partners. GPTX’s approach to BTC offsetting is designed to go beyond industry minimums and actively contribute to long-term environmental impact reduction.
+
+---
+
+## ✅ When It *Is* Sustainable
+
+### 1. Use High-Quality Carbon Credits
+
+GPTX will only use offset providers with verifiable, high-integrity projects, such as:
+
+- [Gold Standard](https://www.goldstandard.org/)
+- [Verra (VCS)](https://verra.org/)
+- [Puro.Earth](https://puro.earth/)
+- Web3 carbon protocols (e.g., KlimaDAO, Carbonmark, Toucan)
+
+These providers offer audited, additional, and permanent offset mechanisms.
+
+---
+
+### 2. Accurately Estimate Bitcoin Emissions
+
+GPTX uses established models (e.g., [Cambridge Bitcoin Electricity Consumption Index](https://www.jbs.cam.ac.uk/2025/cambridge-study-sustainable-energy-rising-in-bitcoin-mining/) to estimate the CO₂e per BTC-based transaction, adjusted for:
+
+- **Miner energy mix** (renewables vs fossil)
+- **Network-wide energy demand**
+- **Transaction type** (on-chain vs Lightning Network)
+
+Lightning transactions have dramatically lower carbon costs and will be prioritized.
+
+---
+
+### 3. Public Offset Ledger
+
+All BTC-based purchases and their associated offsets will be tracked in a **public Green Ledger**, including:
+
+- Timestamped record of BTC payment
+- CO₂e estimate
+- Offset provider and link to proof/certificate
+- Wallet of origin (hashed/anonymized if needed)
+
+Transparency ensures trust.
+
+---
+
+### 4. Real Carbon Drawdown Focus
+
+GPTX favors offsets that **remove** carbon rather than delay emissions:
+
+- ✅ Direct air capture (DAC)
+- ✅ Biochar
+- ✅ Soil car
+
