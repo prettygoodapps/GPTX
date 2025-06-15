@@ -1,3 +1,5 @@
+## !!!EXPERIMENTAL!!!
+
 # GPTX - Universal AI Token Exchange with Carbon Offset Incentives
 
 **GPTX** is a next-generation platform that unlocks value from unused AI service tokens (OpenAI, Claude, Gemini, etc.) by allowing users to trade, convert, or donate those tokens on a decentralized exchange.
