@@ -1,33 +1,43 @@
-# GPTX Project Roadmap
+# GPTX Green AI Ledger - Project Roadmap
 
-This document outlines the high-level development roadmap for the GPTX Project. The timeline is divided into quarterly milestones, focusing on a phased approach from proof-of-concept to public launch.
+This document outlines the high-level development roadmap for the GPTX Green AI Ledger Project. The timeline is divided into quarterly milestones, focusing on a phased approach to building a comprehensive AI carbon accountability platform.
 
-## Q3 2025: Proof-of-Concept (POC)
-*   **Goal:** Develop and deploy a functional POC on an Ethereum testnet (e.g., Sepolia).
+## Q3 2025: Carbon Footprint Estimation & API (Phase 1 - Core Focus)
+*   **Goal:** Develop and release the core carbon footprint estimation engine and its API.
 *   **Key Deliverables:**
-    *   Implement the core smart contracts: Token Wrapper, Exchange, and Offset Trigger.
-    *   Build a minimal frontend for wrapping, trading, and retiring tokens.
-    *   Integrate with a simulated carbon offset provider API.
-    *   Publish detailed POC results and a public demo.
+    *   Initial carbon emission models for common AI workloads (e.g., training, inference).
+    *   RESTful API endpoints for submitting AI workload data and receiving carbon footprint estimates.
+    *   Basic data storage for footprint records.
+    *   Comprehensive unit and integration tests for the estimation engine.
 
-## Q4 2025: Alpha & Security Audit
-*   **Goal:** Prepare for a limited public release by focusing on security and user feedback.
+## Q4 2025: Carbon Offset Integration & Green Ledger POC
+*   **Goal:** Integrate with a carbon offset marketplace and establish a Proof-of-Concept for the Green Ledger.
 *   **Key Deliverables:**
-    *   Conduct a full security audit of the smart contracts with a reputable third-party firm.
-    *   Launch a limited Alpha program for early adopters to test the platform on mainnet.
-    *   Refine the user interface based on feedback from alpha testers.
-    *   Establish the initial framework for the GPTX DAO.
+    *   Integration with at least one reputable carbon offset provider (e.g., Gold Standard, KlimaDAO).
+    *   API endpoints for purchasing and retiring carbon offsets.
+    *   POC for recording carbon offset transactions on a public blockchain (the "Green Ledger").
+    *   Initial reporting and analytics for carbon offset activities.
 
-## Q1 2026: Public Beta Launch
-*   **Goal:** Open the platform to the public and begin building the community.
+## Q1 2026: Green Ledger Alpha & Public API
+*   **Goal:** Launch an Alpha version of the Green Ledger and make the full API publicly available.
 *   **Key Deliverables:**
-    *   Launch the public beta of the GPTX Exchange.
-    *   Implement the initial version of the DAO governance model, allowing token holders to vote on key proposals.
-    *   Onboard the first official carbon offset partner.
+    *   Deployment of the Green Ledger smart contracts on a testnet (e.g., Sepolia, Polygon Mumbai).
+    *   Public API documentation and SDKs for developers to integrate with the GPTX Green AI Ledger.
+    *   Alpha program for early adopters to test the end-to-end carbon tracking and offsetting process.
+    *   Basic web interface for viewing Green Ledger transactions.
 
-## Q2 2026: Expansion & Ecosystem Growth
-*   **Goal:** Expand the platform's capabilities and grow the ecosystem.
+## Q2 2026: Ecosystem Expansion & Advanced Analytics
+*   **Goal:** Expand the platform's capabilities and enhance carbon tracking accuracy.
 *   **Key Deliverables:**
-    *   Integrate with at least two new AI service providers to increase the variety of tokenized assets.
-    *   Develop and release an API for third-party developers to build on top of the GPTX platform.
-    *   Launch a grants program funded by the DAO treasury to encourage community contributions.
+    *   Integration with additional carbon offset providers and marketplaces.
+    *   Advanced AI model analytics for more granular and accurate carbon footprint estimations.
+    *   Tools and integrations for major cloud providers (AWS, Azure, GCP) to automatically track AI compute usage.
+    *   Research and development into new methods for AI carbon reduction.
+
+## Future Vision: Sustainable AI Economy
+*   **Long-term Goal:** Build a comprehensive ecosystem for sustainable AI.
+*   **Potential Future Deliverables:**
+    *   A "Green AI" certification program for models and applications.
+    *   A marketplace for sustainable AI products and services.
+    *   Exploration of a decentralized exchange for AI credits, with sustainability as a core principle.
+    *   DAO governance for the GPTX Green AI Ledger.

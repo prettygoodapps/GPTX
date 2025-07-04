@@ -1,52 +1,57 @@
 ## !!!EXPERIMENTAL!!!
 
-# GPTX - Universal AI Token Exchange with Carbon Offset Incentives
+# GPTX - The Green AI Ledger
 
-**GPTX** is a next-generation platform that unlocks value from unused AI service tokens (OpenAI, Claude, Gemini, etc.) by allowing users to trade, convert, or donate those tokens on a decentralized exchange.
+**GPTX** is a platform designed to measure, manage, and mitigate the carbon footprint of artificial intelligence. Our mission is to promote a sustainable AI ecosystem by providing transparent, verifiable, and accessible tools for carbon accountability.
 
-We combine **cross-platform token liquidity** with **carbon-aware compute accountability**, empowering users and platforms to reduce waste, offset carbon, and participate in a universal AI token economy.
+We empower developers, companies, and AI providers to track the environmental impact of their compute usage and offset it through a decentralized, on-chain system.
 
 ## 🔥 Why GPTX?
 
-- **Rescue Wasted Tokens** – Convert unused GPT tokens into a usable universal token
-- **Cross-Platform Compatibility** – Trade across multiple AI providers
-- **Carbon Offset Integration** – Contribute to green initiatives and reduce the carbon cost of idle compute
-- **Decentralized & Transparent** – Powered by smart contracts, user governance, and public carbon ledgers
+- **Measure & Offset AI's Carbon Footprint** – Understand the environmental impact of AI workloads and take action.
+- **Promote Transparency** – Utilize a public, immutable ledger to track carbon offsets and sustainability claims.
+- **Incentivize Green Compute** – Reward and recognize AI providers and users who prioritize sustainability.
+- **Build a Foundation for a Sustainable AI Economy** – Create the tools needed for environmental, social, and governance (ESG) compliance and leadership in the AI space.
 
-## 🧩 Key Features
+## 🧩 Core Features (Phase 1)
 
-- ERC-20-based **GPTX Coin**
-- Token Wrappers for OpenAI, Claude, Mistral, etc.
-- Token Exchange Module (manual or AMM)
-- Carbon Offset Pool (donation-based or automated)
-- Public Dashboard + Green AI Certification for providers
-- Optional DAO Governance Layer
+- **AI Carbon Footprint Estimation Engine** – A service to estimate the carbon emissions of AI usage based on model type, hardware, and location.
+- **Decentralized Carbon Offset Marketplace** – A system to purchase and retire carbon credits from trusted, verifiable providers (e.g., Gold Standard, KlimaDAO).
+- **The Green Ledger** – A public, blockchain-based record of all carbon footprints and their corresponding offsets.
+- **ERC-20 GPTX Token** – A utility token for governance, platform fees, and staking in the carbon offset ecosystem.
+- **Green AI Certification** – A program to certify AI providers and applications that demonstrate a commitment to carbon neutrality.
 
-## 🌍 Sustainability Layer
+## 🌍 Sustainability First
 
-GPTX estimates the compute cost of unused tokens and offers a mechanism to:
-- Offset carbon usage via trusted providers (Gold Standard, KlimaDAO)
-- Publicly track and verify sustainability participation
-- Help AI platforms demonstrate ESG compliance and environmental leadership
+GPTX is built on the principle that technological progress should not come at an unsustainable environmental cost. Our platform helps stakeholders:
+- Publicly track and verify their sustainability efforts.
+- Demonstrate ESG compliance and environmental leadership.
+- Make informed decisions about their AI usage and its impact.
 
-## 📅 Roadmap Highlights
+## 📅 Phased Roadmap
 
+### **Phase 1: Carbon Accountability (Current Focus)**
 - ✅ MVP Design & Architecture
-- 🔜 Token wrapping for OpenAI and Claude
-- 🔜 Basic swap contract and UI
-- 🔜 Carbon offset donation module
-- 🔜 Green Ledger Explorer
+- 🔜 Develop Carbon Estimation Models for major AI services.
+- 🔜 Implement a transparent Carbon Offset Pool/Marketplace.
+- 🔜 Launch the Public Green Ledger Explorer.
+- 🔜 Release GPTX Governance Token.
+
+### **Future Vision: A Broader Sustainable AI Economy**
+- 🏗️ Explore a cross-platform AI service credit exchange, built upon the foundation of our Green Ledger.
+- 🏗️ Research token wrapping for unused AI credits as a mechanism to reduce waste.
+- 🏗️ Design a full-fledged decentralized AI marketplace where sustainability is a core metric.
 
 ## 🤝 Get Involved
 
 We're actively looking for:
-- **Smart contract developers**
-- **Backend engineers**
-- **UX/UI designers**
-- **Fintech legal advisors**
+- **Backend engineers (Python, FastAPI)**
+- **Data scientists (for carbon modeling)**
+- **Smart contract developers (Solidity)**
 - **Carbon sustainability experts**
+- **UX/UI designers**
 
-Want to help build the AI sustainability layer?  
+Want to help build the AI sustainability layer?
 **👉 [Contact Us or Submit an Issue](https://github.com/YOUR_REPO/issues)**
 
 ## 📝 License
@@ -55,4 +60,4 @@ MIT License
 
 ---
 
-GPTX — Unlocking AI Token Liquidity & Sustainability for a Cleaner Compute Future.
+GPTX — Building a Sustainable Future for Artificial Intelligence.

@@ -1,46 +1,44 @@
-# GPTX System Architecture
+# GPTX Green AI Ledger - System Architecture
 
-This document outlines the proposed technical architecture for the GPTX platform. The design is based on a decentralized, three-layer model that separates user interaction, application logic, and blockchain execution.
+This document outlines the technical architecture for the GPTX Green AI Ledger. The design is centered around a service-oriented architecture that separates concerns between carbon footprint calculation, blockchain interaction, and user-facing services.
 
 ## Architecture Diagram
 
 ```mermaid
 graph TD
-    subgraph "User Layer"
-        A[User's Browser]
+    subgraph "User/Client Layer"
+        A[Client Application] --> B{API Gateway}
     end
 
-    subgraph "Application Layer"
-        B[Frontend: Next.js/React] -- "Interacts with" --> C{Smart Contracts};
-        B -- "API Calls" --> D[Carbon Offset API];
+    subgraph "Service Layer"
+        B --> C[Carbon Footprint Service]
+        B --> D[Carbon Offset Service]
+        B --> E[Green Ledger Service]
     end
 
-    subgraph "Blockchain Layer (Ethereum/L2)"
-        C -- "Executes" --> E[Token Wrapper Contract];
-        C -- "Executes" --> F[Exchange Contract];
-        C -- "Executes" --> G[Offset Trigger Contract];
+    subgraph "Data & Blockchain Layer"
+        C --> F[AI Usage Database]
+        D -- "Interacts with" --> G[Carbon Credit Marketplaces]
+        E -- "Writes to" --> H{Blockchain Ledger}
     end
 
     subgraph "External Services"
-        D
+        G
     end
-
-    A --> B;
 ```
 
 ## Component Descriptions
 
-### 1. User Layer
-*   **User's Browser:** The entry point for all user interactions. Users will connect to the frontend application using a standard web browser with a wallet extension like MetaMask.
+### 1. User/Client Layer
+*   **Client Application:** Any application (e.g., a web app, a CI/CD pipeline, a script) that interacts with the GPTX API.
 
-### 2. Application Layer
-*   **Frontend (Next.js/React):** A modern, responsive web application that provides the user interface. It will handle wallet connections, display token information, and facilitate interactions with the smart contracts.
-*   **Carbon Offset API:** An external API service (e.g., a public API from a carbon credit provider) that the frontend will call to fetch offset data and potentially initiate offset purchases.
+### 2. Service Layer
+*   **API Gateway:** The single entry point for all API requests. It routes requests to the appropriate backend service.
+*   **Carbon Footprint Service:** Responsible for estimating the carbon footprint of AI workloads based on input parameters (e.g., model, hardware, runtime).
+*   **Carbon Offset Service:** Manages the interaction with external carbon credit marketplaces, allowing users to purchase and retire carbon offsets.
+*   **Green Ledger Service:** Responsible for recording carbon footprint data and offset transactions on the blockchain.
 
-### 3. Blockchain Layer (Ethereum/L2)
-This layer will be built on an Ethereum Virtual Machine (EVM) compatible blockchain, likely a Layer 2 solution (e.g., Arbitrum, Optimism) to ensure low transaction costs and high throughput.
-
-*   **Smart Contracts (Solidity):** The core logic of the platform resides in a set of smart contracts.
-    *   **Token Wrapper Contract:** Manages the creation (wrapping) and redemption (unwrapping) of GPTX tokens, which represent underlying AI service credits.
-    *   **Exchange Contract:** A decentralized exchange (DEX) contract that allows users to trade their wrapped GPTX tokens.
-    *   **Offset Trigger Contract:** This contract is triggered when a token is "retired." It will interact with a carbon offset provider (either via an oracle or a direct integration) to purchase and record a carbon offset on-chain.
+### 3. Data & Blockchain Layer
+*   **AI Usage Database:** A database to store data about AI workloads for footprint calculation.
+*   **Carbon Credit Marketplaces:** External platforms that provide carbon credits for purchase.
+*   **Blockchain Ledger:** An immutable, public ledger (e.g., on Ethereum or a Layer 2) that stores a permanent record of all carbon offsets.

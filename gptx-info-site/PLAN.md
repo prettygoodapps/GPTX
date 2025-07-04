@@ -1,66 +1,36 @@
-# GPTX Project Plan
+# GPTX Green AI Ledger - Project Plan
 
-This document provides a comprehensive overview of the GPTX project, including its purpose, system architecture, and development roadmap.
+This document provides a comprehensive overview of the GPTX Green AI Ledger project, including its purpose, system architecture, and development roadmap.
 
 ## 1. Project Overview
 
-**Purpose:** GPTX is a decentralized exchange for tokenized AI service credits, featuring an integrated carbon offset mechanism. This repository contains the project's public-facing landing page, initial use case analysis, and technical proof-of-concept documentation.
+**Purpose:** GPTX is a platform for measuring, managing, and offsetting the carbon footprint of AI. Our goal is to foster a sustainable AI ecosystem through transparent and verifiable carbon accountability.
 
 The primary goal is to create a platform that:
-*   Unlocks the value of unused AI tokens.
-*   Offsets the carbon footprint of idle compute resources.
-*   Provides decentralized access and community governance.
+*   Provides accurate estimations of the carbon footprint of AI workloads.
+*   Offers a seamless way to purchase and retire carbon offsets.
+*   Maintains a public, immutable record of all offset activities on a "Green Ledger."
 
 ## 2. System Architecture
 
-The proposed technical architecture is based on a decentralized, three-layer model.
-
-### Architecture Diagram
-```mermaid
-graph TD
-    subgraph "User Layer"
-        A[User's Browser]
-    end
-
-    subgraph "Application Layer"
-        B[Frontend: Next.js/React] -- "Interacts with" --> C{Smart Contracts};
-        B -- "API Calls" --> D[Carbon Offset API];
-    end
-
-    subgraph "Blockchain Layer (Ethereum/L2)"
-        C -- "Executes" --> E[Token Wrapper Contract];
-        C -- "Executes" --> F[Exchange Contract];
-        C -- "Executes" --> G[Offset Trigger Contract];
-    end
-
-    subgraph "External Services"
-        D
-    end
-
-    A --> B;
-```
-
-### Components
-*   **User Layer:** A standard web browser with a wallet extension (e.g., MetaMask).
-*   **Application Layer:** A Next.js/React frontend for user interaction and an external API for carbon offset data.
-*   **Blockchain Layer (Ethereum/L2):** Solidity smart contracts (Token Wrapper, Exchange, Offset Trigger) deployed on a low-cost, high-throughput Layer 2 network.
+(The system architecture is detailed in `ARCHITECTURE.md`)
 
 ## 3. Development Roadmap
 
 The project will be developed in phases, with the following high-level milestones:
 
-### Q3 2025: Proof-of-Concept (POC)
-*   **Goal:** Develop and deploy a functional POC on an Ethereum testnet.
-*   **Deliverables:** Core smart contracts, minimal frontend, and a public demo.
+### **Phase 1: Carbon Accountability (Current Focus)**
+*   **Goal:** Develop and launch the core carbon tracking and offsetting platform.
+*   **Deliverables:**
+    *   A robust carbon estimation engine.
+    *   Integration with at least one carbon offset marketplace.
+    *   A functional Green Ledger on a public blockchain.
+    *   A public API for all core features.
 
-### Q4 2025: Alpha & Security Audit
-*   **Goal:** Prepare for a limited public release.
-*   **Deliverables:** Full security audit, a limited Alpha program, and the initial DAO framework.
-
-### Q1 2026: Public Beta Launch
-*   **Goal:** Open the platform to the public.
-*   **Deliverables:** Public beta launch, initial DAO governance, and the first official carbon offset partner.
-
-### Q2 2026: Expansion & Ecosystem Growth
-*   **Goal:** Expand platform capabilities.
-*   **Deliverables:** Integration with new AI service providers, a developer API, and a DAO-funded grants program.
+### **Future Vision: A Broader Sustainable AI Economy**
+*   **Goal:** Expand the platform to become a comprehensive hub for sustainable AI.
+*   **Potential Future Deliverables:**
+    *   A "Green AI" certification program.
+    *   A marketplace for sustainable AI products and services.
+    *   Research and development into more efficient and sustainable AI technologies.
+    *   Exploration of a decentralized exchange for AI credits, with sustainability as a core principle.
