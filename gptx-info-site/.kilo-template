@@ -1,0 +1,80 @@
+"""
+KILO CODE PROJECT TEMPLATE v1.0
+===============================
+
+This file defines mandatory requirements and best practices for all Kilo Code projects.
+Copy this template and associated configuration files to new repositories.
+
+LANGUAGE PLATFORM REQUIREMENTS:
+================================
+# KILO_DIRECTIVE: LANGUAGE_PLATFORM
+# Primary: Python 3.9+
+# Secondary: Only with explicit justification
+# Prohibited: Legacy languages without business case
+# Framework Preference: FastAPI > Django > Flask
+
+ENVIRONMENT SETUP:
+==================
+# KILO_DIRECTIVE: ENVIRONMENT_SETUP
+# Virtual Environment: MANDATORY (poetry preferred, venv acceptable)
+# Dependency Management: pyproject.toml + poetry.lock OR requirements.txt + requirements-dev.txt
+# Environment Variables: .env files with python-dotenv (never commit secrets)
+# Python Version: Specify in .python-version file
+
+CODE QUALITY STANDARDS:
+=======================
+# KILO_DIRECTIVE: QUALITY_GATES
+# Formatting: black --line-length 88
+# Import Sorting: isort --profile black
+# Type Checking: mypy --strict (type hints required for all public functions)
+# Linting: flake8 with complexity limit 10
+# Security: bandit security scanning
+# Testing: pytest with minimum 80% coverage
+
+PROJECT STRUCTURE:
+==================
+# KILO_DIRECTIVE: PROJECT_STRUCTURE
+# Use src/ layout for packages
+# Separate source, tests, docs, and scripts
+# Include proper __init__.py files
+# Follow Python packaging standards
+
+DEVELOPMENT WORKFLOW:
+=====================
+# KILO_DIRECTIVE: WORKFLOW
+# Pre-commit hooks: MANDATORY
+# Branch protection: Require PR reviews
+# CI/CD: Automated testing and quality checks
+# Version Control: Semantic versioning (semver)
+
+PRODUCTION READINESS:
+=====================
+# KILO_DIRECTIVE: PRODUCTION
+# Structured logging with appropriate levels
+# Comprehensive error handling
+# Configuration management (12-factor app principles)
+# Health checks and monitoring endpoints
+# Docker containerization for deployment
+
+COMPLIANCE REQUIREMENTS:
+========================
+# KILO_DIRECTIVE: COMPLIANCE
+# Code Coverage: Minimum 80%
+# Security Scan: Zero high/critical vulnerabilities
+# Documentation: 100% docstring coverage for public APIs
+# License: Specify and verify compatibility
+# Dependencies: Regular security updates
+
+VALIDATION COMMANDS:
+====================
+# Run these commands to validate project compliance:
+# make lint          - Run all linting tools
+# make test          - Execute test suite with coverage
+# make security      - Security vulnerability scan
+# make docs          - Generate and validate documentation
+# make validate-all  - Run complete validation suite
+
+TEMPLATE VERSION: 1.0
+LAST UPDATED: 2025-01-22
+MAINTAINER: Kilo Code Team
+"""
