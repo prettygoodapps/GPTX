@@ -13,7 +13,7 @@ A platform for tracking, managing, and offsetting the carbon footprint of AI wor
 
 ## 🏗️ Architecture
 
-This project follows Kilo Code compliance standards with:
+This project adheres to high-quality code standards with:
 
 - **Python 3.9+** with modern async/await patterns
 - **FastAPI** framework for high-performance APIs

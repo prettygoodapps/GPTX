@@ -58,6 +58,10 @@ Want to help build the AI sustainability layer?
 
 MIT License
 
+## 🚀 Contributing
+
+We welcome contributions! Please see our [CONTRIBUTING.md](gptx-info-site/CONTRIBUTING.md) for detailed guidelines on how to contribute, including code style, testing, and pull request processes.
+
 ---
 
 GPTX — Building a Sustainable Future for Artificial Intelligence.

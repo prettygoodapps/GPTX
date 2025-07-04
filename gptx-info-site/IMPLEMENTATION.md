@@ -68,3 +68,5 @@ This POC provides a solid foundation for the full GPTX Green AI Ledger. The next
 ## 🎉 Conclusion
 
 The GPTX Green AI Ledger POC has been successfully implemented. It validates the technical feasibility of the core features and provides a strong foundation for future development.
+
+For more details on contributing, please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file.

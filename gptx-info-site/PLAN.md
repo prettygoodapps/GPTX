@@ -11,6 +11,8 @@ The primary goal is to create a platform that:
 *   Offers a seamless way to purchase and retire carbon offsets.
 *   Maintains a public, immutable record of all offset activities on a "Green Ledger."
 
+For more details on contributing, please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+
 ## 2. System Architecture
 
 (The system architecture is detailed in `ARCHITECTURE.md`)

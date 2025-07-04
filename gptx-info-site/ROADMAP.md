@@ -41,3 +41,5 @@ This document outlines the high-level development roadmap for the GPTX Green AI 
     *   A marketplace for sustainable AI products and services.
     *   Exploration of a decentralized exchange for AI credits, with sustainability as a core principle.
     *   DAO governance for the GPTX Green AI Ledger.
+
+For more details on contributing, please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file.

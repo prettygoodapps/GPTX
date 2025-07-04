@@ -2,6 +2,8 @@
 
 This document outlines the technical architecture for the GPTX Green AI Ledger. The design is centered around a service-oriented architecture that separates concerns between carbon footprint calculation, blockchain interaction, and user-facing services.
 
+This project adheres to high-quality code standards, as detailed in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+
 ## Architecture Diagram
 
 ```mermaid
