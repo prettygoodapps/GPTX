@@ -10,3 +10,6 @@
 [submodule "gptx-devops"]
 	path = gptx-devops
 	url = https://github.com/prettygoodapps/gptx-devops
+[submodule "gptx-exchange-dapp"]
+	path = gptx-exchange-dapp
+	url = https://github.com/prettygoodapps/gptx-exchange-dapp
