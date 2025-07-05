@@ -1,13 +1,16 @@
 import pytest
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase, sessionmaker
+
 
 # We'll define these in the new database.py
 class Base(DeclarativeBase):
     pass
 
+
 engine = create_engine("sqlite:///:memory:")
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
 
 def get_db():
     db = SessionLocal()
@@ -15,6 +18,7 @@ def get_db():
         yield db
     finally:
         db.close()
+
 
 def test_database_setup():
     # This test simply checks if the components can be imported and initialized

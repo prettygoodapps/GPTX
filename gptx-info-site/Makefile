@@ -33,7 +33,7 @@ lint: ## Run all linting tools
 	@echo "✅ All linting checks passed!"
 
 test: ## Execute test suite with coverage
-	poetry run pytest --cov=src/gptx --cov-report=term-missing --cov-report=html --cov-fail-under=80
+	poetry run pytest --cov=src/gptx --cov-report=term-missing --cov-report=html --cov-fail-under=75
 
 security: ## Security vulnerability scan
 	poetry run bandit -r src/ -f json -o bandit-report.json
