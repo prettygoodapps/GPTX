@@ -268,7 +268,7 @@ def check_new_structure(project_root: Path) -> bool:
 
 
 def main() -> None:
-    """Main migration function."""
+    """Execute the main migration process."""
     project_root = Path(__file__).parent.parent
 
     print("🔄 GPTX Exchange Migration to Kilo Code Compliance")
