@@ -9,7 +9,7 @@ ENV PYTHONUNBUFFERED 1
 RUN pip install poetry
 
 # Copy poetry project files and install dependencies
-COPY pyproject.toml poetry.lock ./ 
+COPY pyproject.toml ./
 RUN poetry install --no-root
 
 # Copy the rest of your application code
