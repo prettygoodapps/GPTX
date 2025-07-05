@@ -166,3 +166,5 @@ test.db
 ../gptx-api-backend/
 ../gptx-contracts/
 ../gptx-exchange-dapp/
+
+gptx_exchange.db

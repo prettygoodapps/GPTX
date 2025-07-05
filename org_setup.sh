@@ -28,7 +28,7 @@ for REPO in "${REPOS[@]}"; do
 
 This is part of the [GPTX Project](https://gptexchange.info).
 
-> Repository: \`$REPO\`  
+> Repository: \`$REPO\`
 > Purpose: _[Add a short description here]_
 
 ## License

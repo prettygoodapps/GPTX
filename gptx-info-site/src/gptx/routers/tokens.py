@@ -1,4 +1,6 @@
-from datetime import datetime, timezone
+
+"""Tokens router for GPTX Exchange."""
+
 from typing import Any, Dict, List
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -295,7 +297,7 @@ async def unwrap_credits(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=(
                 f"Insufficient wrapped tokens. Available: {total_wrapped}, "
-                f"Requested: {request.token_amount}"
+                "Requested: {request.token_amount}"
             ),
         )
 

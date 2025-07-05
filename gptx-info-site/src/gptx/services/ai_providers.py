@@ -39,7 +39,6 @@ class AIProviderService:
                 "name": "Google AI",
                 "api_key": settings.GOOGLE_API_KEY,
                 "base_url": "https://generativelanguage.googleapis.com/v1",
-                "credit_unit": "tokens",
             },
         }
 
@@ -95,7 +94,9 @@ class AIProviderService:
             "provider": provider,
             "credit_amount": credit_amount,
             "verification_timestamp": datetime.now(timezone.utc).isoformat(),
-            "verification_id": f"{provider}_{hash(proof) & 0xffff:04x}",
+            "verification_id": (
+                f"{provider}_{hash(proof) & 0xffff:04x}"
+            ),
             "details": {
                 "provider_name": self.providers[provider]["name"],
                 "credit_unit": self.providers[provider]["credit_unit"],

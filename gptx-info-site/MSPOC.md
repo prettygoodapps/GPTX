@@ -62,4 +62,3 @@ A strong POC should:
 [^8]: https://portal.ct.gov/dot/-/media/dot/engineering/0093_0164/ecmspocformpdf.pdf?rev=f3cd63fc30204c7d9a14938eccfc8ef4\&hash=F3AF58637ACAE9271E6E205B1CF91943
 
 [^9]: https://assets.ctfassets.net/k26sw1bgepr3/7gopgkRA7g7TmTc2IeARMh/7100fa88b5ba11cb78d5aa00fef596c1/Whitepaper_PoC.pdf
-

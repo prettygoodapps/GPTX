@@ -1,3 +1,5 @@
+"""Exchange router for GPTX Exchange."""
+
 from datetime import datetime, timezone
 from typing import Any, Dict, List
 
@@ -131,7 +133,9 @@ async def execute_trade(
             f"{datetime.now(timezone.utc).isoformat()}"
         )
         # Hash the input string and format it as a hexadecimal string
-        transaction_hash = f"0x{hash(hash_input_string) & 0xffffffffffffffffffffffffffffffffffffffff:040x}"
+        transaction_hash = (
+            f"0x{hash(hash_input_string) & 0xffffffffffffffffffffffffffffffffffffffff:040x}"
+        )
 
         # Store trade in database
         trade = Exchange(

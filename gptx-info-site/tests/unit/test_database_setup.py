@@ -1,18 +1,21 @@
+"""Test database setup and configuration."""
+
+from typing import Generator
+
 import pytest
 from sqlalchemy import create_engine
-from sqlalchemy.orm import DeclarativeBase, sessionmaker
+from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
+
+from gptx.core.database import Base, SessionLocal, engine
 
 
-# We'll define these in the new database.py
-class Base(DeclarativeBase):
-    pass
+def get_db() -> Generator[Session, None, None]:
+    """
+    Dependency function to get database session for testing.
 
-
-engine = create_engine("sqlite:///:memory:")
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-
-def get_db():
+    Yields:
+        Session: SQLAlchemy database session
+    """
     db = SessionLocal()
     try:
         yield db
@@ -20,8 +23,10 @@ def get_db():
         db.close()
 
 
-def test_database_setup():
-    # This test simply checks if the components can be imported and initialized
+def test_database_setup() -> None:
+    """
+    Test if database components can be imported and initialized.
+    """
     assert Base is not None
     assert engine is not None
     assert SessionLocal is not None

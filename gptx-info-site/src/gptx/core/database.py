@@ -1,3 +1,10 @@
+"""
+Database configuration and models for GPTX Exchange.
+
+This module contains SQLAlchemy models and database configuration
+for the GPTX Exchange platform with proper type hints and documentation.
+"""
+
 from datetime import datetime, timezone
 from typing import Generator, Optional
 

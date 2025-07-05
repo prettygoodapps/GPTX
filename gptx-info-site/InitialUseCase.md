@@ -52,4 +52,3 @@
 [^7]: https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-phased-approach/step2.html
 
 [^8]: http://home.iscte-iul.pt/~hro/RUPSmallProjects/core.base_rup/tasks/prioritize_use_cases_E6E4D9A0.html
-

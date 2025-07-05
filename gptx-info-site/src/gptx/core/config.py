@@ -36,7 +36,10 @@ class Settings(BaseSettings):
         return int(os.getenv("PORT", self.PORT))
 
     # Database
-    DATABASE_URL: str = "postgresql://user:password@localhost:5432/gptx_db"  # Example PostgreSQL URL. Override with environment variable.
+    DATABASE_URL: str = (
+        "postgresql://user:password@localhost:5432/gptx_db"  # Example PostgreSQL URL.
+        "Override with environment variable."
+    )
 
     # Blockchain
     WEB3_PROVIDER_URL: str = "http://127.0.0.1:8545"  # Local Ganache/Hardhat

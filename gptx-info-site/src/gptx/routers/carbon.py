@@ -1,3 +1,5 @@
+"""Carbon offset router for GPTX Exchange."""
+
 import json
 from datetime import datetime, timezone
 from typing import Any, Dict, List
@@ -89,7 +91,7 @@ async def retire_tokens_for_offset(
             detail=(
                 f"Insufficient token balance. Available: {total_balance}, "
                 f"Requested: {request.token_amount}"
-            ),
+            )
         )
 
     try:
