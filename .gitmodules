@@ -7,3 +7,6 @@
 [submodule "gptx-contracts"]
 	path = gptx-contracts
 	url = https://github.com/prettygoodapps/gptx-contracts
+[submodule "gptx-devops"]
+	path = gptx-devops
+	url = https://github.com/prettygoodapps/gptx-devops
