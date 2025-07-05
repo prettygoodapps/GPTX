@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Dict, List
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -68,7 +68,7 @@ async def get_active_orders(db: Session = Depends(get_db)) -> List[OrderInfo]:
             token_amount=100.0,
             price_per_token=0.95,
             total_price=95.0,
-            created_at=datetime.utcnow().isoformat(),
+            created_at=datetime.now(timezone.utc).isoformat(),
             status="active",
         ),
         OrderInfo(
@@ -77,7 +77,7 @@ async def get_active_orders(db: Session = Depends(get_db)) -> List[OrderInfo]:
             token_amount=250.0,
             price_per_token=0.98,
             total_price=245.0,
-            created_at=datetime.utcnow().isoformat(),
+            created_at=datetime.now(timezone.utc).isoformat(),
             status="active",
         ),
     ]
@@ -128,7 +128,7 @@ async def execute_trade(
         # Construct a unique string for hashing
         hash_input_string = (
             f"{buyer_address}{seller_address}{request.token_amount}"
-            f"{datetime.utcnow().isoformat()}"
+            f"{datetime.now(timezone.utc).isoformat()}"
         )
         # Hash the input string and format it as a hexadecimal string
         transaction_hash = f"0x{hash(hash_input_string) & 0xffffffffffffffffffffffffffffffffffffffff:040x}"

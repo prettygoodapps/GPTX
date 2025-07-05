@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Dict, Optional
 
 from web3 import Web3
@@ -54,16 +54,6 @@ class BlockchainService:
             },
             {
                 "inputs": [
-                    {"name": "provider", "type": "string"},
-                    {"name": "tokenAmount", "type": "uint256"},
-                ],
-                "name": "unwrapCredits",
-                "outputs": [],
-                "stateMutability": "nonpayable",
-                "type": "function",
-            },
-            {
-                "inputs": [
                     {"name": "tokenAmount", "type": "uint256"},
                     {"name": "reason", "type": "string"},
                 ],
@@ -89,7 +79,6 @@ class BlockchainService:
 
         Args:
             address: Ethereum address to check balance for
-
         Returns:
             float: ETH balance in ether units
         """
@@ -129,7 +118,7 @@ class BlockchainService:
         # For POC: Simulate transaction without actual blockchain interaction
         hash_input_string = (
             f"{user_address}{provider}{credit_amount}"
-            f"{datetime.utcnow().isoformat()}"
+            f"{datetime.now(timezone.utc).isoformat()}"
         )
         transaction_hash = f"0x{hash(hash_input_string) & 0xffffffffffffffffffffffffffffffffffffffff:040x}"
 
@@ -138,7 +127,7 @@ class BlockchainService:
             "status": "success",
             "gas_used": 150000,
             "block_number": 12345678,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "details": {
                 "user_address": user_address,
                 "provider": provider,
@@ -166,7 +155,7 @@ class BlockchainService:
         """
         hash_input_string = (
             f"{user_address}unwrap{provider}{token_amount}"
-            f"{datetime.utcnow().isoformat()}"
+            f"{datetime.now(timezone.utc).isoformat()}"
         )
         transaction_hash = f"0x{hash(hash_input_string) & 0xffffffffffffffffffffffffffffffffffffffff:040x}"
 
@@ -175,7 +164,7 @@ class BlockchainService:
             "status": "success",
             "gas_used": 120000,
             "block_number": 12345679,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "details": {
                 "user_address": user_address,
                 "provider": provider,
@@ -203,7 +192,7 @@ class BlockchainService:
         """
         hash_input_string = (
             f"{user_address}retire{token_amount}"
-            + f"{datetime.utcnow().isoformat()}"
+            + f"{datetime.now(timezone.utc).isoformat()}"
         )
         transaction_hash = f"0x{hash(hash_input_string) & 0xffffffffffffffffffffffffffffffffffffffff:040x}"
 
@@ -212,7 +201,7 @@ class BlockchainService:
             "status": "success",
             "gas_used": 100000,
             "block_number": 12345680,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "details": {
                 "user_address": user_address,
                 "token_amount": token_amount,
@@ -242,7 +231,7 @@ class BlockchainService:
             "status": 1,  # Success
             "blockNumber": 12345678,
             "gasUsed": 150000,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
         }
 
     def estimate_gas_price(self) -> Dict[str, Any]:

@@ -5,7 +5,7 @@ This module provides services for integrating with various AI service providers,
 verifying credit ownership, and managing credit restoration with proper type safety.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Dict
 
 from gptx.core.config import settings
@@ -94,7 +94,7 @@ class AIProviderService:
             "valid": True,
             "provider": provider,
             "credit_amount": credit_amount,
-            "verification_timestamp": datetime.utcnow().isoformat(),
+            "verification_timestamp": datetime.now(timezone.utc).isoformat(),
             "verification_id": f"{provider}_{hash(proof) & 0xffff:04x}",
             "details": {
                 "provider_name": self.providers[provider]["name"],
@@ -137,7 +137,7 @@ class AIProviderService:
             "provider": provider,
             "balance": mock_balances.get(provider, 0.0),
             "unit": self.providers[provider]["credit_unit"],
-            "last_updated": datetime.utcnow().isoformat(),
+            "last_updated": datetime.now(timezone.utc).isoformat(),
         }
 
     async def restore_credits(
@@ -172,7 +172,7 @@ class AIProviderService:
                 f"{provider}_restore_"
                 + f"{hash(user_identifier + str(credit_amount)) & 0xffff:04x}"
             ),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "message": (
                 f"Successfully restored {credit_amount} "
                 f"{self.providers[provider]['credit_unit']} to {provider} account"
@@ -242,6 +242,6 @@ class AIProviderService:
             "status": "healthy",
             "api_available": True,
             "response_time_ms": 150,
-            "last_checked": datetime.utcnow().isoformat(),
+            "last_checked": datetime.now(timezone.utc).isoformat(),
             "api_key_configured": provider_info["api_key"] is not None,
         }

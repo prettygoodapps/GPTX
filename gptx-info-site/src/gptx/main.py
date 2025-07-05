@@ -58,9 +58,7 @@ async def read_root(request: Request) -> HTMLResponse:
     Returns:
         HTMLResponse: The rendered landing page
     """
-    return HTMLResponse(
-        templates.TemplateResponse("index.html", {"request": request})
-    )
+    return templates.TemplateResponse("index.html", {"request": request})
 
 
 @app.get("/health")

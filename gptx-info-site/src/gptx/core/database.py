@@ -1,10 +1,3 @@
-"""
-Database configuration and models for GPTX Exchange.
-
-This module contains SQLAlchemy models and database configuration
-for the GPTX Exchange platform with proper type hints and documentation.
-"""
-
 from datetime import datetime, timezone
 from typing import Generator, Optional
 
@@ -12,7 +5,6 @@ from sqlalchemy import Boolean, DateTime, Float, Integer, String, Text, create_e
 from sqlalchemy.orm import (
     DeclarativeBase,
     Mapped,
-    MappedAsDataclass,
     Session,
     mapped_column,
     sessionmaker,
@@ -39,7 +31,6 @@ class Base(DeclarativeBase):
     pass
 
 
-@MappedAsDataclass
 class TokenWrapper(Base):
     """
     Model for tracking wrapped AI service credits.
@@ -68,7 +59,6 @@ class TokenWrapper(Base):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
 
 
-@MappedAsDataclass
 class Exchange(Base):
     """
     Model for tracking token exchanges.
@@ -100,7 +90,6 @@ class Exchange(Base):
     )  # pending, completed, failed
 
 
-@MappedAsDataclass
 class CarbonOffset(Base):
     """
     Model for tracking carbon offset purchases.
@@ -134,7 +123,6 @@ class CarbonOffset(Base):
     )  # JSON string for additional data
 
 
-@MappedAsDataclass
 class AIProvider(Base):
     """
     Model for supported AI service providers.

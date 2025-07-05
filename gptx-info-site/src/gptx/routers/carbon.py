@@ -1,12 +1,5 @@
-"""
-Carbon offset API endpoints.
-
-This module provides API endpoints for retiring GPTX tokens to purchase
-carbon offsets, viewing offset history, and accessing offset certificates.
-"""
-
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Dict, List
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -110,7 +103,7 @@ async def retire_tokens_for_offset(
         # Mock offset provider and certificate
         offset_provider = "GreenCarbon Solutions"
         certificate_id = (
-            f"GCS-{datetime.utcnow().strftime('%Y%m%d')}-"
+            f"GCS-{datetime.now(timezone.utc).strftime('%Y%m%d')}-"
             f"{hash(user_address + str(request.token_amount)) & 0xffff:04x}"
         )
 

@@ -64,7 +64,7 @@ For automated agents interacting with this repository, please adhere to the foll
 *   **Infer & Adhere:** Always infer and strictly adhere to the existing code style, project structure, and architectural patterns present in the codebase.
 *   **Validate All Changes:** Before proposing or committing any modifications, execute the project's full suite of validation checks (`make validate-all`) and tests (`make test`). Only proceed if all checks pass without errors or warnings.
 *   **Atomic & Focused:** Aim for small, atomic changes that address a single, clearly defined concern.
-*   **Prefer `replace` for Edits:** When modifying existing code, utilize the `replace` tool for precise, context-aware changes. Ensure the `old_string` argument includes sufficient surrounding context (at least 3 lines before and after the target text) to guarantee accuracy.
+*   **Reliable Text Replacement:** When modifying existing code, read the file content, perform string replacements using Python's built-in methods, and then write the modified content back to the file. This ensures precise and reliable changes.
 *   **Explain Intent:** For significant or non-obvious changes, include a concise explanation of the rationale (`why`) behind the modification.
 *   **Respect `.gitignore`:** Do not modify, create, or interact with files or directories listed in `.gitignore`.
 *   **No External Assumptions:** Do not assume the presence, appropriateness, or usage of any external libraries, frameworks, or tools unless they are explicitly declared in the project's dependency management files (`pyproject.toml`, `package.json`, etc.) or explicitly instructed by the user.

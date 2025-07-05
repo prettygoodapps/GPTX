@@ -150,3 +150,16 @@ hardhat-cache/
 artifacts/
 cache/
 typechain-types/
+temp_add_provider.py
+temp_update_conftest.py
+temp_update_qa_instructions.py
+gptx_exchange.db
+test.db
+
+temp_add_provider.py
+temp_update_conftest.py
+temp_update_qa_instructions.py
+gptx_exchange.db
+test.db
+.pre-commit-config.yaml.swp
+
