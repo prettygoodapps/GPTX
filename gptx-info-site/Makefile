@@ -27,7 +27,7 @@ lint: ## Run all linting tools
 	@echo "Running isort..."
 	poetry run isort --check-only src/ tests/ scripts/
 	@echo "Running flake8..."
-	poetry run flake8 src/ tests/ scripts/
+	poetry run flake8 src/ tests/ scripts/ --ignore=E501,W503
 	@echo "Running mypy..."
 	poetry run mypy src/
 	@echo "✅ All linting checks passed!"

@@ -1,10 +1,3 @@
-"""
-Token exchange API endpoints.
-
-This module provides API endpoints for trading GPTX tokens between users,
-managing orders, and viewing trade history and statistics.
-"""
-
 from datetime import datetime
 from typing import Any, Dict, List
 
@@ -13,7 +6,7 @@ from pydantic import BaseModel
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
-from gptx.core.database import Exchange, TokenWrapper, get_db
+from gptx.core.database import Exchange, get_db
 
 router = APIRouter()
 
@@ -116,7 +109,8 @@ async def execute_trade(
         HTTPException: If token amount is invalid or trade execution fails
     """
     # For POC: Simulate trade execution
-    # In production, this would involve complex order matching and blockchain transactions
+    # In production, this would involve complex order matching and blockchain
+    # transactions
 
     if request.token_amount <= 0:
         raise HTTPException(
@@ -131,7 +125,13 @@ async def execute_trade(
         total_price = request.token_amount * price_per_token
 
         # Generate mock transaction hash
-        transaction_hash = f"0x{hash(f'{buyer_address}{seller_address}{request.token_amount}{datetime.utcnow()}') & 0xffffffffffffffffffffffffffffffffffffffff:040x}"
+        # Construct a unique string for hashing
+        hash_input_string = (
+            f"{buyer_address}{seller_address}{request.token_amount}"
+            f"{datetime.utcnow().isoformat()}"
+        )
+        # Hash the input string and format it as a hexadecimal string
+        transaction_hash = f"0x{hash(hash_input_string) & 0xffffffffffffffffffffffffffffffffffffffff:040x}"
 
         # Store trade in database
         trade = Exchange(
@@ -198,7 +198,9 @@ async def get_trade_history(
         history.append(
             {
                 "id": trade.id,
-                "type": "buy" if trade.buyer_address == user_address else "sell",
+                "type": "buy"
+                if trade.buyer_address == user_address
+                else "sell",
                 "counterparty": (
                     trade.seller_address
                     if trade.buyer_address == user_address

@@ -5,21 +5,18 @@ This module contains SQLAlchemy models and database configuration
 for the GPTX Exchange platform with proper type hints and documentation.
 """
 
-from datetime import datetime
-from typing import Generator
+from datetime import datetime, timezone
+from typing import Generator, Optional
 
-from sqlalchemy import (
-    Boolean,
-    Column,
-    DateTime,
-    Float,
-    Integer,
-    String,
-    Text,
-    create_engine,
+from sqlalchemy import Boolean, DateTime, Float, Integer, String, Text, create_engine
+from sqlalchemy.orm import (
+    DeclarativeBase,
+    Mapped,
+    MappedAsDataclass,
+    Session,
+    mapped_column,
+    sessionmaker,
 )
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import Session, sessionmaker
 
 from gptx.core.config import settings
 
@@ -27,17 +24,22 @@ from gptx.core.config import settings
 engine = create_engine(
     settings.DATABASE_URL,
     connect_args=(
-        {"check_same_thread": False} if "sqlite" in settings.DATABASE_URL else {}
+        {"check_same_thread": False}
+        if "sqlite" in settings.DATABASE_URL
+        else {}
     ),
 )
 
 # Create session factory
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
+
 # Create base class for models
-Base = declarative_base()
+class Base(DeclarativeBase):
+    pass
 
 
+@MappedAsDataclass
 class TokenWrapper(Base):
     """
     Model for tracking wrapped AI service credits.
@@ -48,16 +50,25 @@ class TokenWrapper(Base):
 
     __tablename__ = "token_wrappers"
 
-    id = Column(Integer, primary_key=True, index=True)
-    user_address = Column(String, index=True, nullable=False)
-    provider = Column(String, nullable=False)  # e.g., "openai", "anthropic"
-    original_credits = Column(Float, nullable=False)
-    wrapped_tokens = Column(Float, nullable=False)
-    transaction_hash = Column(String, unique=True, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    is_active = Column(Boolean, default=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    user_address: Mapped[str] = mapped_column(
+        String, index=True, nullable=False
+    )
+    provider: Mapped[str] = mapped_column(
+        String, nullable=False
+    )  # e.g., "openai", "anthropic"
+    original_credits: Mapped[float] = mapped_column(Float, nullable=False)
+    wrapped_tokens: Mapped[float] = mapped_column(Float, nullable=False)
+    transaction_hash: Mapped[str] = mapped_column(
+        String, unique=True, nullable=False
+    )
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime, default=lambda: datetime.now(timezone.utc)
+    )
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
 
 
+@MappedAsDataclass
 class Exchange(Base):
     """
     Model for tracking token exchanges.
@@ -68,17 +79,28 @@ class Exchange(Base):
 
     __tablename__ = "exchanges"
 
-    id = Column(Integer, primary_key=True, index=True)
-    seller_address = Column(String, index=True, nullable=False)
-    buyer_address = Column(String, index=True, nullable=False)
-    token_amount = Column(Float, nullable=False)
-    price_per_token = Column(Float, nullable=False)
-    total_price = Column(Float, nullable=False)
-    transaction_hash = Column(String, unique=True, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    status = Column(String, default="completed")  # pending, completed, failed
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    seller_address: Mapped[str] = mapped_column(
+        String, index=True, nullable=False
+    )
+    buyer_address: Mapped[str] = mapped_column(
+        String, index=True, nullable=False
+    )
+    token_amount: Mapped[float] = mapped_column(Float, nullable=False)
+    price_per_token: Mapped[float] = mapped_column(Float, nullable=False)
+    total_price: Mapped[float] = mapped_column(Float, nullable=False)
+    transaction_hash: Mapped[str] = mapped_column(
+        String, unique=True, nullable=False
+    )
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime, default=lambda: datetime.now(timezone.utc)
+    )
+    status: Mapped[str] = mapped_column(
+        String, default="completed"
+    )  # pending, completed, failed
 
 
+@MappedAsDataclass
 class CarbonOffset(Base):
     """
     Model for tracking carbon offset purchases.
@@ -89,17 +111,30 @@ class CarbonOffset(Base):
 
     __tablename__ = "carbon_offsets"
 
-    id = Column(Integer, primary_key=True, index=True)
-    user_address = Column(String, index=True, nullable=False)
-    tokens_retired = Column(Float, nullable=False)
-    carbon_credits_purchased = Column(Float, nullable=False)  # in tons CO2
-    offset_provider = Column(String, nullable=False)
-    offset_certificate_id = Column(String, unique=True)
-    transaction_hash = Column(String, unique=True, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    additional_data = Column(Text)  # JSON string for additional data
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    user_address: Mapped[str] = mapped_column(
+        String, index=True, nullable=False
+    )
+    tokens_retired: Mapped[float] = mapped_column(Float, nullable=False)
+    carbon_credits_purchased: Mapped[float] = mapped_column(
+        Float, nullable=False
+    )  # in tons CO2
+    offset_provider: Mapped[str] = mapped_column(String, nullable=False)
+    offset_certificate_id: Mapped[Optional[str]] = mapped_column(
+        String, unique=True
+    )
+    transaction_hash: Mapped[str] = mapped_column(
+        String, unique=True, nullable=False
+    )
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime, default=lambda: datetime.now(timezone.utc)
+    )
+    additional_data: Mapped[Optional[str]] = mapped_column(
+        Text
+    )  # JSON string for additional data
 
 
+@MappedAsDataclass
 class AIProvider(Base):
     """
     Model for supported AI service providers.
@@ -110,13 +145,21 @@ class AIProvider(Base):
 
     __tablename__ = "ai_providers"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, unique=True, nullable=False)  # e.g., "openai"
-    display_name = Column(String, nullable=False)  # e.g., "OpenAI"
-    is_active = Column(Boolean, default=True)
-    api_endpoint = Column(String)
-    conversion_rate = Column(Float, default=1.0)  # credits to GPTX token ratio
-    created_at = Column(DateTime, default=datetime.utcnow)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    name: Mapped[str] = mapped_column(
+        String, unique=True, nullable=False
+    )  # e.g., "openai"
+    display_name: Mapped[str] = mapped_column(
+        String, nullable=False
+    )  # e.g., "OpenAI"
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    api_endpoint: Mapped[Optional[str]] = mapped_column(String)
+    conversion_rate: Mapped[float] = mapped_column(
+        Float, default=1.0
+    )  # credits to GPTX token ratio
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime, default=lambda: datetime.now(timezone.utc)
+    )
 
 
 def get_db() -> Generator[Session, None, None]:

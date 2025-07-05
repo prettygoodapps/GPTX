@@ -5,8 +5,7 @@ This module provides API endpoints for wrapping AI service credits into GPTX tok
 checking balances, and unwrapping tokens back to credits.
 """
 
-from datetime import datetime
-from typing import List
+from typing import Any, Dict, List
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
@@ -40,7 +39,7 @@ class TokenBalance(BaseModel):
 
     user_address: str
     total_balance: float
-    wrapped_credits: List[dict]
+    wrapped_credits: List[Dict[str, Any]]
 
 
 class ProviderInfo(BaseModel):
@@ -69,7 +68,9 @@ class UnwrapCreditsResponse(BaseModel):
 
 
 @router.get("/providers", response_model=List[ProviderInfo])
-async def get_supported_providers(db: Session = Depends(get_db)) -> List[ProviderInfo]:
+async def get_supported_providers(
+    db: Session = Depends(get_db),
+) -> List[ProviderInfo]:
     """
     Get list of supported AI service providers.
 
@@ -79,13 +80,13 @@ async def get_supported_providers(db: Session = Depends(get_db)) -> List[Provide
     Returns:
         List[ProviderInfo]: List of active AI service providers
     """
-    providers = db.query(AIProvider).filter(AIProvider.is_active == True).all()
+    providers = db.query(AIProvider).filter(AIProvider.is_active).all()
     return [
         ProviderInfo(
-            name=p.name,
-            display_name=p.display_name,
-            is_active=p.is_active,
-            conversion_rate=p.conversion_rate,
+            name=str(p.name),
+            display_name=str(p.display_name),
+            is_active=bool(p.is_active),
+            conversion_rate=float(p.conversion_rate),
         )
         for p in providers
     ]
@@ -117,7 +118,7 @@ async def wrap_credits(
     # Validate provider
     provider = (
         db.query(AIProvider)
-        .filter(AIProvider.name == request.provider, AIProvider.is_active == True)
+        .filter(AIProvider.name == request.provider, AIProvider.is_active)
         .first()
     )
 
@@ -162,7 +163,10 @@ async def wrap_credits(
 
         # Create blockchain transaction
         tx_result = blockchain_service.wrap_credits_transaction(
-            user_address, request.provider, request.credit_amount, request.proof
+            user_address,
+            request.provider,
+            request.credit_amount,
+            request.proof,
         )
 
         # Store in database
@@ -180,8 +184,11 @@ async def wrap_credits(
 
         return WrapCreditsResponse(
             transaction_hash=tx_result["transaction_hash"],
-            tokens_issued=tokens_to_mint,
-            message=f"Successfully wrapped {request.credit_amount} {request.provider} credits into {tokens_to_mint} GPTX tokens",
+            tokens_issued=float(tokens_to_mint),
+            message=(
+                f"Successfully wrapped {request.credit_amount} {request.provider} "
+                f"credits into {tokens_to_mint} GPTX tokens"
+            ),
         )
 
     except HTTPException:
@@ -212,7 +219,7 @@ async def get_token_balance(
     wrapped_credits = (
         db.query(TokenWrapper)
         .filter(
-            TokenWrapper.user_address == user_address, TokenWrapper.is_active == True
+            TokenWrapper.user_address == user_address, TokenWrapper.is_active
         )
         .all()
     )
@@ -235,7 +242,7 @@ async def get_token_balance(
 
     return TokenBalance(
         user_address=user_address,
-        total_balance=total_balance,
+        total_balance=float(total_balance),
         wrapped_credits=credits_info,
     )
 
@@ -266,7 +273,7 @@ async def unwrap_credits(
     # Validate provider
     provider_obj = (
         db.query(AIProvider)
-        .filter(AIProvider.name == request.provider, AIProvider.is_active == True)
+        .filter(AIProvider.name == request.provider, AIProvider.is_active)
         .first()
     )
 
@@ -282,7 +289,7 @@ async def unwrap_credits(
         .filter(
             TokenWrapper.user_address == user_address,
             TokenWrapper.provider == request.provider,
-            TokenWrapper.is_active == True,
+            TokenWrapper.is_active,
         )
         .all()
     )
@@ -292,7 +299,10 @@ async def unwrap_credits(
     if total_wrapped < request.token_amount:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Insufficient wrapped tokens. Available: {total_wrapped}, Requested: {request.token_amount}",
+            detail=(
+                f"Insufficient wrapped tokens. Available: {total_wrapped}, "
+                f"Requested: {request.token_amount}"
+            ),
         )
 
     try:
@@ -301,7 +311,9 @@ async def unwrap_credits(
         ai_service = AIProviderService()
 
         # Calculate credits to restore
-        credits_to_restore = request.token_amount / provider_obj.conversion_rate
+        credits_to_restore = (
+            request.token_amount / provider_obj.conversion_rate
+        )
 
         # Create blockchain transaction
         tx_result = blockchain_service.unwrap_credits_transaction(
@@ -309,30 +321,35 @@ async def unwrap_credits(
         )
 
         # Mark tokens as unwrapped (simplified - in production would be more complex)
-        remaining_to_unwrap = request.token_amount
+        remaining_to_unwrap = float(request.token_amount)
         for wrapper in user_wrappers:
             if remaining_to_unwrap <= 0:
                 break
 
-            if wrapper.wrapped_tokens <= remaining_to_unwrap:
+            if float(wrapper.wrapped_tokens) <= remaining_to_unwrap:
                 # Unwrap entire wrapper
                 wrapper.is_active = False
-                remaining_to_unwrap -= wrapper.wrapped_tokens
+                remaining_to_unwrap -= float(wrapper.wrapped_tokens)
             else:
                 # Partial unwrap - would need more complex logic in production
-                wrapper.wrapped_tokens -= remaining_to_unwrap
+                wrapper.wrapped_tokens = (
+                    float(wrapper.wrapped_tokens) - remaining_to_unwrap
+                )
                 remaining_to_unwrap = 0
 
         # Restore credits to AI provider account
-        restore_result = await ai_service.restore_credits(
-            request.provider, credits_to_restore, user_address
+        await ai_service.restore_credits(
+            request.provider, float(credits_to_restore), user_address
         )
 
         db.commit()
 
         return UnwrapCreditsResponse(
-            message=f"Successfully unwrapped {request.token_amount} GPTX tokens back to {credits_to_restore} {request.provider} credits",
-            credits_restored=credits_to_restore,
+            message=(
+                f"Successfully unwrapped {request.token_amount} GPTX tokens back to "
+                f"{credits_to_restore} {request.provider} credits"
+            ),
+            credits_restored=float(credits_to_restore),
             provider=request.provider,
             transaction_hash=tx_result["transaction_hash"],
         )

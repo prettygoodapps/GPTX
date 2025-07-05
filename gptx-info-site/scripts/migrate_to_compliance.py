@@ -6,7 +6,6 @@ This script helps migrate from the old app/ structure to the new
 src/gptx/ structure by removing old files and updating references.
 """
 
-import os
 import shutil
 import sys
 from pathlib import Path
@@ -269,7 +268,9 @@ def check_new_structure(project_root: Path) -> bool:
 
 
 def main() -> None:
-    """Main migration function."""
+    """
+    Main migration function.
+    """
     project_root = Path(__file__).parent.parent
 
     print("🔄 GPTX Exchange Migration to Kilo Code Compliance")
@@ -277,7 +278,9 @@ def main() -> None:
 
     # Check if new structure exists
     if not check_new_structure(project_root):
-        print("\n❌ Cannot proceed with migration - new structure is incomplete")
+        print(
+            "\n❌ Cannot proceed with migration - new structure is incomplete"
+        )
         sys.exit(1)
 
     print("\n📋 This script will:")

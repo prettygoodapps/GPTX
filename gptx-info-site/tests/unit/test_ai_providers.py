@@ -5,8 +5,6 @@ This module tests the AIProviderService functionality including
 credit verification, balance checking, and provider management.
 """
 
-from unittest.mock import AsyncMock, patch
-
 import pytest
 
 from gptx.services.ai_providers import AIProviderService
@@ -39,7 +37,9 @@ class TestAIProviderService:
     async def test_verify_credit_ownership_valid(self, ai_service):
         """Test valid credit ownership verification."""
         result = await ai_service.verify_credit_ownership(
-            provider="openai", credit_amount=100.0, proof="valid_proof_12345"
+            provider="openai",
+            credit_amount=100.0,
+            proof="valid_proof_12345",
         )
 
         assert result["valid"] is True
@@ -52,7 +52,9 @@ class TestAIProviderService:
     async def test_verify_credit_ownership_invalid_provider(self, ai_service):
         """Test credit verification with invalid provider."""
         result = await ai_service.verify_credit_ownership(
-            provider="invalid_provider", credit_amount=100.0, proof="valid_proof_12345"
+            provider="invalid_provider",
+            credit_amount=100.0,
+            proof="valid_proof_12345",
         )
 
         assert result["valid"] is False
@@ -62,7 +64,9 @@ class TestAIProviderService:
     async def test_verify_credit_ownership_invalid_proof(self, ai_service):
         """Test credit verification with invalid proof."""
         result = await ai_service.verify_credit_ownership(
-            provider="openai", credit_amount=100.0, proof="short"
+            provider="openai",
+            credit_amount=100.0,
+            proof="short",
         )
 
         assert result["valid"] is False
@@ -72,7 +76,9 @@ class TestAIProviderService:
     async def test_verify_credit_ownership_invalid_amount(self, ai_service):
         """Test credit verification with invalid amount."""
         result = await ai_service.verify_credit_ownership(
-            provider="openai", credit_amount=-10.0, proof="valid_proof_12345"
+            provider="openai",
+            credit_amount=-10.0,
+            proof="valid_proof_12345",
         )
 
         assert result["valid"] is False
@@ -94,7 +100,9 @@ class TestAIProviderService:
     async def test_restore_credits(self, ai_service):
         """Test restoring credits to user account."""
         result = await ai_service.restore_credits(
-            provider="openai", credit_amount=50.0, user_identifier="test_user"
+            provider="openai",
+            credit_amount=50.0,
+            user_identifier="test_user",
         )
 
         assert result["success"] is True

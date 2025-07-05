@@ -5,7 +5,6 @@ This module tests the complete API functionality including
 token wrapping, trading, and carbon offsetting workflows.
 """
 
-import pytest
 from fastapi.testclient import TestClient
 
 from gptx.core.database import AIProvider
@@ -38,11 +37,16 @@ class TestTokenEndpoints:
         assert test_provider is not None
         assert test_provider["display_name"] == "Test Provider"
 
-    def test_wrap_credits_flow(self, client: TestClient, test_db, sample_user_address):
+    def test_wrap_credits_flow(
+        self, client: TestClient, test_db, sample_user_address
+    ):
         """Test the complete credit wrapping flow."""
         # Add a test provider
         provider = AIProvider(
-            name="openai", display_name="OpenAI", is_active=True, conversion_rate=1.0
+            name="openai",
+            display_name="OpenAI",
+            is_active=True,
+            conversion_rate=1.0,
         )
         test_db.add(provider)
         test_db.commit()
@@ -55,7 +59,8 @@ class TestTokenEndpoints:
         }
 
         response = client.post(
-            f"/api/tokens/wrap?user_address={sample_user_address}", json=wrap_request
+            f"/api/tokens/wrap?user_address={sample_user_address}",
+            json=wrap_request,
         )
 
         assert response.status_code == 200
@@ -131,7 +136,9 @@ class TestExchangeEndpoints:
 class TestCarbonEndpoints:
     """Integration tests for carbon offset endpoints."""
 
-    def test_retire_tokens(self, client: TestClient, test_db, sample_user_address):
+    def test_retire_tokens(
+        self, client: TestClient, test_db, sample_user_address
+    ):
         """Test retiring tokens for carbon offset."""
         # First need to have some tokens - add a mock wrapper
         from gptx.core.database import TokenWrapper
@@ -230,13 +237,16 @@ class TestErrorHandling:
         }
 
         response = client.post(
-            f"/api/tokens/wrap?user_address={sample_user_address}", json=wrap_request
+            f"/api/tokens/wrap?user_address={sample_user_address}",
+            json=wrap_request,
         )
 
         assert response.status_code == 400
         assert "not supported" in response.json()["detail"]
 
-    def test_invalid_token_amount(self, client: TestClient, sample_user_address):
+    def test_invalid_token_amount(
+        self, client: TestClient, sample_user_address
+    ):
         """Test error handling for invalid token amounts."""
         trade_request = {
             "order_id": 1,

@@ -58,7 +58,9 @@ async def read_root(request: Request) -> HTMLResponse:
     Returns:
         HTMLResponse: The rendered landing page
     """
-    return templates.TemplateResponse("index.html", {"request": request})
+    return HTMLResponse(
+        templates.TemplateResponse("index.html", {"request": request})
+    )
 
 
 @app.get("/health")
@@ -83,7 +85,9 @@ async def api_info() -> Dict[str, Any]:
     return {
         "name": "GPTX Exchange API",
         "version": "0.1.0",
-        "description": "Decentralized AI Token Exchange with Carbon Offsetting",
+        "description": (
+            "Decentralized AI Token Exchange with Carbon Offsetting"
+        ),
         "endpoints": {
             "tokens": "/api/tokens",
             "exchange": "/api/exchange",

@@ -1,16 +1,8 @@
-"""
-Blockchain service for interacting with smart contracts.
-
-This module provides services for blockchain interactions including
-token wrapping, unwrapping, and retirement with proper type safety.
-"""
-
-import json
 from datetime import datetime
 from typing import Any, Dict, Optional
 
-from eth_account import Account
 from web3 import Web3
+from web3.contract import Contract
 
 from gptx.core.config import settings
 
@@ -34,11 +26,12 @@ class BlockchainService:
         self.contract_abi = self._get_mock_contract_abi()
 
         if self.contract_address and self.w3.is_connected():
-            self.contract = self.w3.eth.contract(
-                address=self.contract_address, abi=self.contract_abi
+            self.contract: Optional[Contract] = self.w3.eth.contract(
+                address=self.w3.to_checksum_address(self.contract_address),
+                abi=self.contract_abi,
             )
         else:
-            self.contract = None
+            self.contract: Optional[Contract] = None
 
     def _get_mock_contract_abi(self) -> list[Dict[str, Any]]:
         """
@@ -104,13 +97,19 @@ class BlockchainService:
             return 0.0
 
         try:
-            balance_wei = self.w3.eth.get_balance(address)
+            balance_wei = self.w3.eth.get_balance(
+                self.w3.to_checksum_address(address)
+            )
             return float(self.w3.from_wei(balance_wei, "ether"))
         except Exception:
             return 0.0
 
     def wrap_credits_transaction(
-        self, user_address: str, provider: str, credit_amount: float, proof: str
+        self,
+        user_address: str,
+        provider: str,
+        credit_amount: float,
+        proof: str,
     ) -> Dict[str, Any]:
         """
         Create a wrap credits transaction.
@@ -128,7 +127,11 @@ class BlockchainService:
             Dict[str, Any]: Transaction result with hash and details
         """
         # For POC: Simulate transaction without actual blockchain interaction
-        transaction_hash = f"0x{hash(f'{user_address}{provider}{credit_amount}{datetime.utcnow()}') & 0xffffffffffffffffffffffffffffffffffffffff:040x}"
+        hash_input_string = (
+            f"{user_address}{provider}{credit_amount}"
+            f"{datetime.utcnow().isoformat()}"
+        )
+        transaction_hash = f"0x{hash(hash_input_string) & 0xffffffffffffffffffffffffffffffffffffffff:040x}"
 
         return {
             "transaction_hash": transaction_hash,
@@ -161,7 +164,11 @@ class BlockchainService:
         Returns:
             Dict[str, Any]: Transaction result with hash and details
         """
-        transaction_hash = f"0x{hash(f'{user_address}unwrap{provider}{token_amount}{datetime.utcnow()}') & 0xffffffffffffffffffffffffffffffffffffffff:040x}"
+        hash_input_string = (
+            f"{user_address}unwrap{provider}{token_amount}"
+            f"{datetime.utcnow().isoformat()}"
+        )
+        transaction_hash = f"0x{hash(hash_input_string) & 0xffffffffffffffffffffffffffffffffffffffff:040x}"
 
         return {
             "transaction_hash": transaction_hash,
@@ -194,7 +201,11 @@ class BlockchainService:
         Returns:
             Dict[str, Any]: Transaction result with hash and details
         """
-        transaction_hash = f"0x{hash(f'{user_address}retire{token_amount}{datetime.utcnow()}') & 0xffffffffffffffffffffffffffffffffffffffff:040x}"
+        hash_input_string = (
+            f"{user_address}retire{token_amount}"
+            + f"{datetime.utcnow().isoformat()}"
+        )
+        transaction_hash = f"0x{hash(hash_input_string) & 0xffffffffffffffffffffffffffffffffffffffff:040x}"
 
         return {
             "transaction_hash": transaction_hash,
@@ -210,7 +221,9 @@ class BlockchainService:
             },
         }
 
-    def get_transaction_receipt(self, tx_hash: str) -> Optional[Dict[str, Any]]:
+    def get_transaction_receipt(
+        self, tx_hash: str
+    ) -> Optional[Dict[str, Any]]:
         """
         Get transaction receipt.
 
@@ -241,7 +254,12 @@ class BlockchainService:
         """
         if not self.w3.is_connected():
             # Return mock gas prices for POC
-            return {"slow": 20.0, "standard": 25.0, "fast": 30.0, "unit": "gwei"}
+            return {
+                "slow": 20.0,
+                "standard": 25.0,
+                "fast": 30.0,
+                "unit": "gwei",
+            }
 
         try:
             gas_price = self.w3.eth.gas_price
@@ -254,4 +272,9 @@ class BlockchainService:
                 "unit": "gwei",
             }
         except Exception:
-            return {"slow": 20.0, "standard": 25.0, "fast": 30.0, "unit": "gwei"}
+            return {
+                "slow": 20.0,
+                "standard": 25.0,
+                "fast": 30.0,
+                "unit": "gwei",
+            }

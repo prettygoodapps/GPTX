@@ -40,7 +40,9 @@ class DocstringChecker(ast.NodeVisitor):
             tree = ast.parse(content, filename=str(file_path))
             self.visit(tree)
         except Exception as e:
-            self.issues.append((self.current_file, 0, f"Error parsing file: {e}"))
+            self.issues.append(
+                (self.current_file, 0, f"Error parsing file: {e}")
+            )
 
         return self.issues
 
@@ -142,7 +144,8 @@ def check_docstrings(src_dir: Path) -> int:
 
 
 def main() -> None:
-    """Main entry point."""
+    """
+    Main entry point."""
     project_root = Path(__file__).parent.parent
     src_dir = project_root / "src"
 

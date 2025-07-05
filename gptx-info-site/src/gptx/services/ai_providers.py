@@ -6,9 +6,7 @@ verifying credit ownership, and managing credit restoration with proper type saf
 """
 
 from datetime import datetime
-from typing import Any, Dict, Optional
-
-import httpx
+from typing import Any, Dict
 
 from gptx.core.config import settings
 
@@ -18,7 +16,8 @@ class AIProviderService:
     Service for integrating with AI service providers.
 
     This service handles verification of AI service credits, balance checking,
-    and credit restoration for supported providers like OpenAI, Anthropic, and Google AI.
+    and credit restoration for supported providers like OpenAI, Anthropic,
+    and Google AI.
     """
 
     def __init__(self) -> None:
@@ -79,7 +78,10 @@ class AIProviderService:
             Dict[str, Any]: Verification result with validity status and details
         """
         if provider not in self.providers:
-            return {"valid": False, "error": f"Provider '{provider}' not supported"}
+            return {
+                "valid": False,
+                "error": f"Provider '{provider}' not supported",
+            }
 
         if not proof or len(proof) < 10:
             return {"valid": False, "error": "Invalid proof provided"}
@@ -101,7 +103,9 @@ class AIProviderService:
             },
         }
 
-    async def get_credit_balance(self, provider: str, api_key: str) -> Dict[str, Any]:
+    async def get_credit_balance(
+        self, provider: str, api_key: str
+    ) -> Dict[str, Any]:
         """
         Get current credit balance from provider.
 
@@ -116,10 +120,17 @@ class AIProviderService:
             Dict[str, Any]: Balance information or error details
         """
         if provider not in self.providers:
-            return {"success": False, "error": f"Provider '{provider}' not supported"}
+            return {
+                "success": False,
+                "error": f"Provider '{provider}' not supported",
+            }
 
         # For POC: Return mock balance
-        mock_balances = {"openai": 150.75, "anthropic": 89.25, "google": 200.00}
+        mock_balances = {
+            "openai": 150.75,
+            "anthropic": 89.25,
+            "google": 200.00,
+        }
 
         return {
             "success": True,
@@ -147,16 +158,25 @@ class AIProviderService:
             Dict[str, Any]: Restoration result with success status and details
         """
         if provider not in self.providers:
-            return {"success": False, "error": f"Provider '{provider}' not supported"}
+            return {
+                "success": False,
+                "error": f"Provider '{provider}' not supported",
+            }
 
         return {
             "success": True,
             "provider": provider,
             "credits_restored": credit_amount,
             "user_identifier": user_identifier,
-            "restoration_id": f"{provider}_restore_{hash(user_identifier + str(credit_amount)) & 0xffff:04x}",
+            "restoration_id": (
+                f"{provider}_restore_"
+                + f"{hash(user_identifier + str(credit_amount)) & 0xffff:04x}"
+            ),
             "timestamp": datetime.utcnow().isoformat(),
-            "message": f"Successfully restored {credit_amount} {self.providers[provider]['credit_unit']} to {provider} account",
+            "message": (
+                f"Successfully restored {credit_amount} "
+                f"{self.providers[provider]['credit_unit']} to {provider} account"
+            ),
         }
 
     def calculate_carbon_footprint(
@@ -181,7 +201,9 @@ class AIProviderService:
         }
 
         if provider not in carbon_per_credit:
-            return {"error": f"Carbon footprint data not available for {provider}"}
+            return {
+                "error": f"Carbon footprint data not available for {provider}"
+            }
 
         total_carbon = credit_amount * carbon_per_credit[provider]
 

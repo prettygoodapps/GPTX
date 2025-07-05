@@ -31,7 +31,9 @@ def test_db():
     Base.metadata.create_all(bind=engine)
 
     # Create session
-    TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    TestingSessionLocal = sessionmaker(
+        autocommit=False, autoflush=False, bind=engine
+    )
 
     session = TestingSessionLocal()
     try:

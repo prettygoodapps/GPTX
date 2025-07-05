@@ -7,7 +7,7 @@ formatting and log levels for the GPTX Exchange platform.
 
 import logging
 import sys
-from typing import Any, Dict
+from typing import Any
 
 from gptx.core.config import settings
 

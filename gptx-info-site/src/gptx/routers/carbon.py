@@ -83,8 +83,7 @@ async def retire_tokens_for_offset(
     user_wrappers = (
         db.query(TokenWrapper)
         .filter(
-            TokenWrapper.user_address == user_address,
-            TokenWrapper.is_active.is_(True)
+            TokenWrapper.user_address == user_address, TokenWrapper.is_active
         )
         .all()
     )
@@ -128,7 +127,7 @@ async def retire_tokens_for_offset(
             offset_provider=offset_provider,
             offset_certificate_id=certificate_id,
             transaction_hash=tx_result["transaction_hash"],
-            metadata=json.dumps(
+            additional_data=json.dumps(
                 {
                     "reason": request.reason,
                     "offset_rate": 0.001,
@@ -149,13 +148,15 @@ async def retire_tokens_for_offset(
             if remaining_to_retire <= 0:
                 break
 
-            if wrapper.wrapped_tokens <= remaining_to_retire:
+            if float(wrapper.wrapped_tokens) <= remaining_to_retire:
                 # Retire entire wrapper
-                remaining_to_retire -= wrapper.wrapped_tokens
+                remaining_to_retire -= float(wrapper.wrapped_tokens)
                 wrapper.is_active = False
             else:
                 # Partial retirement
-                wrapper.wrapped_tokens -= remaining_to_retire
+                wrapper.wrapped_tokens = (
+                    float(wrapper.wrapped_tokens) - remaining_to_retire
+                )
                 remaining_to_retire = 0
 
         db.commit()
@@ -163,8 +164,8 @@ async def retire_tokens_for_offset(
 
         return CarbonOffsetResponse(
             transaction_hash=tx_result["transaction_hash"],
-            tokens_retired=request.token_amount,
-            carbon_credits_purchased=carbon_credits_purchased,
+            tokens_retired=float(request.token_amount),
+            carbon_credits_purchased=float(carbon_credits_purchased),
             offset_provider=offset_provider,
             certificate_id=certificate_id,
             message=(
@@ -206,13 +207,13 @@ async def get_offset_history(
 
     return [
         OffsetInfo(
-            id=offset.id,
-            user_address=offset.user_address,
-            tokens_retired=offset.tokens_retired,
-            carbon_credits_purchased=offset.carbon_credits_purchased,
-            offset_provider=offset.offset_provider,
-            certificate_id=offset.offset_certificate_id,
-            created_at=offset.created_at.isoformat(),
+            id=int(offset.id),
+            user_address=str(offset.user_address),
+            tokens_retired=float(offset.tokens_retired),
+            carbon_credits_purchased=float(offset.carbon_credits_purchased),
+            offset_provider=str(offset.offset_provider),
+            certificate_id=str(offset.offset_certificate_id),
+            created_at=str(offset.created_at.isoformat()),
         )
         for offset in offsets
     ]
@@ -309,19 +310,23 @@ async def get_offset_certificate(
     if not offset:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail="Certificate not found"
+            detail="Certificate not found",
         )
 
-    metadata = json.loads(offset.metadata) if offset.metadata else {}
+    metadata = (
+        json.loads(str(offset.additional_data))
+        if offset.additional_data
+        else {}
+    )
 
     return {
-        "certificate_id": offset.offset_certificate_id,
-        "user_address": offset.user_address,
-        "tokens_retired": offset.tokens_retired,
-        "carbon_credits_purchased": offset.carbon_credits_purchased,
-        "offset_provider": offset.offset_provider,
-        "transaction_hash": offset.transaction_hash,
-        "created_at": offset.created_at.isoformat(),
+        "certificate_id": str(offset.offset_certificate_id),
+        "user_address": str(offset.user_address),
+        "tokens_retired": float(offset.tokens_retired),
+        "carbon_credits_purchased": float(offset.carbon_credits_purchased),
+        "offset_provider": str(offset.offset_provider),
+        "transaction_hash": str(offset.transaction_hash),
+        "created_at": str(offset.created_at.isoformat()),
         "metadata": metadata,
         "verification_url": (
             f"https://registry.goldstandard.org/projects/{certificate_id}"

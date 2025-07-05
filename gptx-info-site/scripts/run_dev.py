@@ -9,14 +9,14 @@ with proper configuration for the refactored project structure.
 import sys
 from pathlib import Path
 
-# Add src to Python path
-src_path = Path(__file__).parent.parent / "src"
-sys.path.insert(0, str(src_path))
-
 import uvicorn
 
 from gptx.core.config import settings
 from gptx.core.database import AIProvider, Base, SessionLocal, engine
+
+# Add src to Python path
+src_path = Path(__file__).parent.parent / "src"
+sys.path.insert(0, str(src_path))
 
 
 def init_database() -> None:
@@ -85,14 +85,18 @@ def main() -> None:
     with hot reloading enabled.
     """
     print("🚀 Starting GPTX Exchange (Development Mode)...")
-    print(f"📊 Environment: {'Development' if settings.DEBUG else 'Production'}")
+    print(
+        f"📊 Environment: {'Development' if settings.DEBUG else 'Production'}"
+    )
     print(f"🌐 Host: {settings.HOST}:{settings.PORT}")
 
     # Initialize database
     init_database()
 
     print("✅ GPTX Exchange is ready!")
-    print(f"🔗 API Documentation: http://{settings.HOST}:{settings.PORT}/api/docs")
+    print(
+        f"🔗 API Documentation: http://{settings.HOST}:{settings.PORT}/api/docs"
+    )
     print(f"🏠 Homepage: http://{settings.HOST}:{settings.PORT}/")
 
     # Start the server

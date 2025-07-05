@@ -17,29 +17,17 @@ To ensure alignment with our goals, we utilize a set of automated tools and foll
 
 ### Code Style & Quality
 
-We enforce consistent code style and quality using the following tools:
+We enforce consistent code style and quality using automated tools. For a comprehensive check, run:
 
-*   **Formatting:** `Black` (Python code formatter) and `isort` (Python import sorter).
-    *   **Command:** `make format`
-*   **Linting:** `Flake8` (Python code linter) and `Bandit` (Python security linter).
-    *   **Command:** `make lint`
-*   **Type Checking:** `MyPy` (static type checker for Python).
-    *   **Command:** `make type-check`
-*   **Pre-commit Hooks:** `pre-commit` is used to automatically run the above checks before each commit.
-    *   **Setup:** `make setup` (installs dependencies and pre-commit hooks)
-    *   **Full Validation:** `make validate-all` (runs all code quality checks)
+*   **Full Validation:** `make validate-all` (This command orchestrates formatting, linting, type checking, and security scanning.)
 
 ### Testing & Reliability
 
-All contributions must include appropriate tests to ensure functionality, prevent regressions, and maintain reliability.
+All contributions must include appropriate tests (unit, integration) to ensure functionality, prevent regressions, and maintain reliability.
 
 *   **Framework:** `Pytest` (Python testing framework).
 *   **Coverage:** Aim for high code coverage (minimum 80%) to ensure thorough testing.
-*   **Commands:**
-    *   Run all tests: `make test`
-    *   Run unit tests: `make test-unit`
-    *   Run integration tests: `make test-integration`
-    *   Generate coverage report: `make coverage`
+*   **Run Tests:** `make test` (This command executes the test suite with coverage reporting.)
 
 ### Security
 
