@@ -198,9 +198,9 @@ async def get_trade_history(
         history.append(
             {
                 "id": trade.id,
-                "type": "buy"
-                if trade.buyer_address == user_address
-                else "sell",
+                "type": (
+                    "buy" if trade.buyer_address == user_address else "sell"
+                ),
                 "counterparty": (
                     trade.seller_address
                     if trade.buyer_address == user_address
