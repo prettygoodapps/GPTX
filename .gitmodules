@@ -1,3 +1,6 @@
 [submodule "gptx-api-backend"]
 	path = gptx-api-backend
 	url = https://github.com/prettygoodapps/gptx-api-backend
+[submodule "gptx-community"]
+	path = gptx-community
+	url = https://github.com/prettygoodapps/gptx-community
