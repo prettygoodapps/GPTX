@@ -1,0 +1,3 @@
+[submodule "gptx-api-backend"]
+	path = gptx-api-backend
+	url = https://github.com/prettygoodapps/gptx-api-backend
