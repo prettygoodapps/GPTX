@@ -16,3 +16,6 @@
 [submodule "gptx-green-ledger"]
 	path = gptx-green-ledger
 	url = https://github.com/prettygoodapps/gptx-green-ledger
+[submodule "gptx-info-site"]
+	path = gptx-info-site
+	url = https://github.com/prettygoodapps/gptx-info-site
