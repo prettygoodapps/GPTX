@@ -4,3 +4,6 @@
 [submodule "gptx-community"]
 	path = gptx-community
 	url = https://github.com/prettygoodapps/gptx-community
+[submodule "gptx-contracts"]
+	path = gptx-contracts
+	url = https://github.com/prettygoodapps/gptx-contracts
