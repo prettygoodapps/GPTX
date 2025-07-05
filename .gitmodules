@@ -13,3 +13,6 @@
 [submodule "gptx-exchange-dapp"]
 	path = gptx-exchange-dapp
 	url = https://github.com/prettygoodapps/gptx-exchange-dapp
+[submodule "gptx-green-ledger"]
+	path = gptx-green-ledger
+	url = https://github.com/prettygoodapps/gptx-green-ledger
