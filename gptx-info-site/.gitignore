@@ -162,3 +162,7 @@ temp_update_qa_instructions.py
 gptx_exchange.db
 test.db
 .pre-commit-config.yaml.swp
+
+../gptx-api-backend/
+../gptx-contracts/
+../gptx-exchange-dapp/
