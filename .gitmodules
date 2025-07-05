@@ -19,3 +19,6 @@
 [submodule "gptx-info-site"]
 	path = gptx-info-site
 	url = https://github.com/prettygoodapps/gptx-info-site
+[submodule "gptx-whitepaper"]
+	path = gptx-whitepaper
+	url = https://github.com/prettygoodapps/gptx-whitepaper
