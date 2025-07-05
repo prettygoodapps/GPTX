@@ -30,13 +30,7 @@ if ! command -v railway &> /dev/null; then
     exit 1
 fi
 
-# Check if git repo is clean
-if [[ -n $(git status --porcelain) ]]; then
-    echo "⚠️  You have uncommitted changes. Committing them now..."
-    git add .
-    git commit -m "Prepare for Railway deployment"
-    echo "✅ Changes committed"
-fi
+
 
 # Push to GitHub
 echo "📤 Pushing to GitHub..."
